@@ -1,3 +1,14 @@
 "use strict";
-let username = 'Radek';
-console.log(username);
+let myName = 'Radek';
+let meaningOfLife;
+let isLoading;
+let album;
+myName = 'Emilia';
+meaningOfLife = 21;
+isLoading = true;
+album = '1984';
+const sum = (a, b) => a + b;
+console.log(sum(7, 'Hi'));
+let postId;
+let isActive;
+let re = /\w+/g;
