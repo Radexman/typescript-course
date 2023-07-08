@@ -1,18 +1,70 @@
-let myName: string = 'Radek';
-let meaningOfLife: number;
-let isLoading: boolean;
-let album: any;
+let stringArr = ['one', 'hey', 'Dave'];
+let guitars = ['Strat', 'Les Paul', 5150];
+let mixedData = ['EVH', 1984, true];
 
-myName = 'Emilia';
-meaningOfLife = 21;
-isLoading = true;
-album = '1984';
+stringArr[0] = 'John';
+stringArr.push('hey');
 
-const sum = (a:number, b:string) => a + b;
+guitars[0]  = 1984;
+guitars.unshift('Jim');
 
-console.log(sum(7, 'Hi'));
- 
-let postId: string | number;
-let isActive: number | boolean;
+let test = [];
+let bands: string[] = [];
+bands.push('Van Helen');
 
-let re:RegExp = /\w+/g
+// Tuple
+let myTuple: [string, number, boolean] = ['Dave', 42, true];
+let mixed = ['John', 1, false];
+
+// Objects
+let myObj:object
+myObj = [];
+console.log(typeof myObj);
+myObj = bands;
+myObj = {};
+
+const exampleObj = {
+    prop1: 'Dave',
+    prop2: true
+};
+
+exampleObj.prop1 = 'John';
+
+interface Guitarist {
+    name?: string,
+    active: boolean,
+    albums: (string | number)[],
+}
+
+let evh: Guitarist = {
+    name: 'Eddie',
+    active: false,
+    albums: [1984, 5150, 'OU812'],
+}
+
+let jp: Guitarist = {
+    name: 'Jimmy',
+    active: true,
+    albums: ['I', 'II', 'IV'],
+}
+
+const greetGuitarist = (guitarist: Guitarist) => {
+    if (guitarist.name) {
+        return `Hello ${guitarist.name.toUpperCase()}!`;
+    }
+    return 'Hello!';
+}
+
+console.log(greetGuitarist(evh));
+
+// Enums
+
+enum Grade {
+    U = 1,
+    D,
+    C,
+    B,
+    A,
+}
+
+console.log(Grade.U);
