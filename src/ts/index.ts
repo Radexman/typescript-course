@@ -1,36 +1,123 @@
-// Type Assertions
+// Classes
 
-const mainHeading = document.getElementById('main-heading') as HTMLElement;
+class Coder {
+	secndLang!: string;
 
-type One = string;
-type Two = string | number;
-type Three = 'hello';
+	constructor(
+		public readonly name: string,
+		public music: string,
+		private age: number,
+		protected lang: string = 'Typescript'
+	) {
+		this.name = name;
+		this.music = music;
+		this.age = age;
+		this.lang = lang;
+	}
 
-// Convert to more or less speific
-let a: One = 'hello';
-let b = a as Two; // less specific
-let c = a as Three; // more sppecific
+	greet() {
+		return `Hello, my name is ${this.name} an I'am a ${this.lang} coder.`;
+	}
 
-let d = <One>'world';
-let e = <string | number>'world';
+	public getAge() {
+		return `Hello, I'm ${this.age}.`;
+	}
+}
 
-const addOrConcat = (a: number, b: number, c: 'add' | 'concat'): number | string => {
-	if (c === 'add') return a + b;
-	return '' + a + b;
+const coderOne = new Coder('Radek', 'Metal', 24);
+console.log(coderOne.greet());
+console.log(coderOne.getAge());
+
+class WebDev extends Coder {
+	constructor(
+		public computer: string,
+		name: string,
+		music: string,
+		age: number
+	) {
+		super(name, music, age);
+		this.computer = computer;
+	}
+
+	public getLang() {
+		return `I write ${this.lang}`;
+	}
+}
+
+const coderTwo = new WebDev('HP', 'Dave', 'Rock', 42);
+console.log(coderTwo.greet());
+
+type Musician = {
+	name: string;
+	instrument: string;
+	play(action: string): string;
 };
 
-const myVal: string = addOrConcat(2, 2, 'concat') as string;
+class Guitarist implements Musician {
+	name: string;
+	instrument: string;
 
-// Be carefull! Typescript sees no problem - but a string is returned
-const nexVal: number = addOrConcat(2, 2, 'concat') as number;
+	constructor(name: string, instrument: string) {
+		this.name = name;
+		this.instrument = instrument;
+	}
 
-10 as unknown as string;
+	play(action: string) {
+		return `${this.name} ${action.toLowerCase()} the ${this.instrument}`;
+	}
+}
 
-// The DOM
-const img = document.querySelector('img') as HTMLImageElement;
-const myImg = document.getElementById('img') as HTMLImageElement;
-const nextImg = <HTMLImageElement>document.getElementById('img');
+const newGuitarist = new Guitarist('Mick Thompson', 'Electric Guitar');
+console.log(newGuitarist.play('Downpicks'));
 
-img.src;
-myImg.src;
-nextImg.src;
+class Peeps {
+	static count = 0;
+
+	static getCount(): number {
+		return Peeps.count;
+	}
+
+	public id: number;
+
+	constructor(public name: string) {
+		this.name = name;
+		this.id = ++Peeps.count;
+	}
+}
+
+const John = new Peeps('John');
+const Steve = new Peeps('Steve');
+const Amy = new Peeps('Amy');
+
+console.log(John.id);
+console.log(Amy.id);
+console.log(Steve.id);
+console.log(Peeps.count);
+
+class Bands {
+	private dataState: string[];
+
+	constructor() {
+		this.dataState = [];
+	}
+
+	public get data(): string[] {
+		return this.dataState;
+	}
+
+	public set data(value: string[]) {
+		if (Array.isArray(value) && value.every((el) => typeof el === 'string')) {
+			this.dataState = value;
+			return;
+		} else {
+			throw new Error('Param is not an array of strings');
+		}
+	}
+}
+
+const MyBands = new Bands();
+MyBands.data = ['Neil Young', 'Led Zeppelin'];
+console.log(MyBands.data);
+MyBands.data = [...MyBands.data, 'ZZ Top'];
+console.log(MyBands.data);
+MyBands.data = ['Van Helen', 5150];
