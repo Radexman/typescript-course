@@ -84,5 +84,4 @@ MyBands.data = ['Neil Young', 'Led Zeppelin'];
 console.log(MyBands.data);
 MyBands.data = [...MyBands.data, 'ZZ Top'];
 console.log(MyBands.data);
-MyBands.data = ['Van Helen', 5150];
 //# sourceMappingURL=index.js.map
