@@ -1,50 +1,19 @@
 "use strict";
-// Index Signatures
-// type TransactionObj = {
-// 	Pizza: number;
-// 	Books: number;
-// 	Job: number;
-// };
-const todaysTransactions = {
-    Pizza: -10,
-    Books: -5,
-    Job: 50,
+const echo = (arg) => arg;
+const isObj = (arg) => {
+    return typeof arg === 'object' && !Array.isArray(arg) && arg !== null;
 };
-console.log(todaysTransactions.Pizza);
-console.log(todaysTransactions['Pizza']);
-const prop = 'Pizza';
-console.log(todaysTransactions[prop]);
-const todaysNet = (transactions) => {
-    let total = 0;
-    for (const transaction in transactions) {
-        total += transactions[transaction];
-    }
-    return total;
+console.log(isObj(true));
+console.log(isObj('John'));
+console.log(isObj([1, 2, 3]));
+console.log(isObj({ name: 'John' }));
+console.log(isObj(null));
+const processUser = (user) => {
+    return user;
 };
-console.log(todaysNet(todaysTransactions));
-console.log(todaysTransactions['Dave']);
-const student = {
-    name: 'Dough',
-    GPA: 3.5,
-    classes: [100, 200],
+console.log(processUser({ id: 1, name: 'Dave' }));
+// console.log(processUser({ name: 'Dave' }));
+const getUsersProperty = (users, key) => {
+    return users.map((user) => user.[key]);
 };
-// console.log(student.test);
-for (const key in student) {
-    console.log(`${key}: ${student[key]}`);
-}
-Object.keys(student).map((key) => {
-    console.log(student[key]);
-});
-const logStudentKey = (student, key) => {
-    console.log(`Student ${key}: ${student[key]}`);
-};
-logStudentKey(student, 'GPA');
-const monthlyIncomes = {
-    salary: 500,
-    bonus: 100,
-    sidehustle: 250,
-};
-for (const revenue in monthlyIncomes) {
-    console.log(monthlyIncomes[revenue]);
-}
 //# sourceMappingURL=index.js.map

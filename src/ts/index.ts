@@ -1,94 +1,51 @@
-// Index Signatures
+const echo = <T>(arg: T): T => arg;
 
-// type TransactionObj = {
-// 	[index: string]: number;
+const isObj = <T>(arg: T): boolean => {
+	return typeof arg === 'object' && !Array.isArray(arg) && arg !== null;
+};
+
+console.log(isObj(true));
+console.log(isObj('John'));
+console.log(isObj([1, 2, 3]));
+console.log(isObj({ name: 'John' }));
+console.log(isObj(null));
+
+// const isTrue = <T>(arg: T): { arg: T; is: boolean } => {
+// 	if (Array.isArray(arg) && !arg.length) {
+// 		return { arg, is: false };
+// 	}
+// 	if (isObj(arg) && !Object.keys(arg as keyof T).length) {
+// 		return { arg, is: false };
+// 	}
+// 	return { arg, is: !!arg };
 // };
 
-type TransactionObj = {
-	readonly [index: string]: number;
-	Pizza: number;
-	Books: number;
-	Job: number;
+type BoolCheck<T> = {
+	value: T;
+	is: boolean;
 };
 
-// type TransactionObj = {
-// 	Pizza: number;
-// 	Books: number;
-// 	Job: number;
+// const isTrue = <T>(arg: T): BoolCheck<T> => {
+// 	if (Array.isArray(arg) && !arg.length) {
+// 		return { value, is: false };
+// 	}
+// 	if (isObj(arg) && !Object.keys(arg as keyof T).length) {
+// 		return { value, is: false };
+// 	}
+// 	return { value, is: !!arg };
 // };
 
-const todaysTransactions: TransactionObj = {
-	Pizza: -10,
-	Books: -5,
-	Job: 50,
+type HasID = {
+	id: number;
 };
 
-console.log(todaysTransactions.Pizza);
-console.log(todaysTransactions['Pizza']);
-
-const prop = 'Pizza';
-console.log(todaysTransactions[prop]);
-
-const todaysNet = (transactions: TransactionObj): number => {
-	let total = 0;
-	for (const transaction in transactions) {
-		total += transactions[transaction];
-	}
-
-	return total;
+const processUser = <T extends HasID>(user: T): T => {
+	return user;
 };
 
-console.log(todaysNet(todaysTransactions));
+console.log(processUser({ id: 1, name: 'Dave' }));
+// console.log(processUser({ name: 'Dave' }));
 
-console.log(todaysTransactions['Dave']);
-
-//
-
-type Student = {
-	// [key: string]: string | number | number[] | undefined;
-	name: string;
-	GPA: number;
-	classes?: number[];
+const getUsersProperty = <T extends HasID, K extends keyof T>(users: [], key: K): T[K][] => {
+	return users.map((user) => user.[key]);
 };
-
-const student: Student = {
-	name: 'Dough',
-	GPA: 3.5,
-	classes: [100, 200],
-};
-
-// console.log(student.test);
-
-for (const key in student) {
-	console.log(`${key}: ${student[key as keyof Student]}`);
-}
-
-Object.keys(student).map((key) => {
-	console.log(student[key as keyof typeof student]);
-});
-
-const logStudentKey = (student: Student, key: keyof Student): viod => {
-	console.log(`Student ${key}: ${student[key]}`);
-};
-
-logStudentKey(student, 'GPA');
-
-//
-
-// type Incomes = {
-// 	[key: string]: number;
-// };
-
-type Streams = 'salary' | 'bonus' | 'sidehustle';
-
-type Incomes = Record<Streams, number>;
-
-const monthlyIncomes: Incomes = {
-	salary: 500,
-	bonus: 100,
-	sidehustle: 250,
-};
-
-for (const revenue in monthlyIncomes) {
-	console.log(monthlyIncomes[revenue as keyof Incomes]);
-}
