@@ -1,5 +1,10 @@
 "use strict";
 // Index Signatures
+// type TransactionObj = {
+// 	Pizza: number;
+// 	Books: number;
+// 	Job: number;
+// };
 const todaysTransactions = {
     Pizza: -10,
     Books: -5,
@@ -17,4 +22,29 @@ const todaysNet = (transactions) => {
     return total;
 };
 console.log(todaysNet(todaysTransactions));
+console.log(todaysTransactions['Dave']);
+const student = {
+    name: 'Dough',
+    GPA: 3.5,
+    classes: [100, 200],
+};
+// console.log(student.test);
+for (const key in student) {
+    console.log(`${key}: ${student[key]}`);
+}
+Object.keys(student).map((key) => {
+    console.log(student[key]);
+});
+const logStudentKey = (student, key) => {
+    console.log(`Student ${key}: ${student[key]}`);
+};
+logStudentKey(student, 'GPA');
+const monthlyIncomes = {
+    salary: 500,
+    bonus: 100,
+    sidehustle: 250,
+};
+for (const revenue in monthlyIncomes) {
+    console.log(monthlyIncomes[revenue]);
+}
 //# sourceMappingURL=index.js.map
